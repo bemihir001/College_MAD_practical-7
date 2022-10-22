@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
 
+
 @Suppress("DEPRECATION")
 class TimeActivty : AppCompatActivity() {
 
@@ -30,9 +31,8 @@ class TimeActivty : AppCompatActivity() {
         val time_picker: TimePicker = findViewById(R.id.time_picker)
         val btn_confirm: Button = findViewById(R.id.btn_confirm)
         val calendar: Calendar = Calendar.getInstance()
+
         btn_confirm.setOnClickListener {
-
-
 
             if (Build.VERSION.SDK_INT >= 23) {
                 calendar.set(
@@ -52,18 +52,18 @@ class TimeActivty : AppCompatActivity() {
                 )
             }
 
-            setAlarm(calender.timeInMillis)
+            //setAlarm(Calender.millisTime)
         }
     }
 
-    private fun setAlarm(timeInMillis: Long) {
+    private fun setAlarm(millisTime: Long, str: String) {
 
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, MyAlarm::class.java)
         val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
         alarmManager.setRepeating(
-            AlarmManager.RTC,
-            timeInMillis,
+            AlarmManager.RTC_WAKEUP,
+            millisTime,
             AlarmManager.INTERVAL_DAY,
             pendingIntent
         )
